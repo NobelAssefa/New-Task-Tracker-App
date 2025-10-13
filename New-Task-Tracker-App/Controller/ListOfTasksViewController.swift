@@ -97,10 +97,10 @@ class ListOfTasksViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             sortButton.heightAnchor.constraint(equalToConstant: 35),
-            sortButton.widthAnchor.constraint(equalToConstant: 80),
+            sortButton.widthAnchor.constraint(equalToConstant: 40),
             filterButton.heightAnchor.constraint(equalToConstant: 35),
-            filterButton.widthAnchor.constraint(equalToConstant: 80),
-            
+            filterButton.widthAnchor.constraint(equalToConstant: 40),
+           
             filterStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             filterStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             filterStackView.topAnchor.constraint(equalTo: halfView.bottomAnchor,constant: 10)
