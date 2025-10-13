@@ -29,7 +29,11 @@ class ListOfTasksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         viewModel.dataSource = viewModel.tasks.tasks
+
+    
+
         
         setUpHalfViewController()
         setupLable()
