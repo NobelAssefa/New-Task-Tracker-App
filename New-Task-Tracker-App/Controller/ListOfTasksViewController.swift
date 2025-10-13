@@ -124,7 +124,7 @@ class ListOfTasksViewController: UIViewController {
         
         
         button1.setImage(Images.addTaskIcon, for: .normal)
-//        button1.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        button1.addTarget(self, action: #selector(addTask), for: .touchUpInside)
 //        
         button1.layer.cornerRadius = 10
         button1.tintColor = Colors.primaryColor
@@ -169,6 +169,12 @@ class ListOfTasksViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
         ])
+    }
+    @objc func addTask(){
+        let task = Tasks(title : textField1.text ?? "", isCompleted: false)
+        viewModel.tasks.addTask(task:task)
+        viewModel.dataSource.append(task)
+        tableView.reloadData()
     }
     
 }

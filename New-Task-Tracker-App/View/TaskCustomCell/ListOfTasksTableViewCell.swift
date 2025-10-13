@@ -7,10 +7,18 @@
 
 import UIKit
 
+protocol ListOfTasksTableViewCellDelegate {
+    func didTapAddButton(_ cell: ListOfTasksTableViewCell)
+}
+
+
 class ListOfTasksTableViewCell: UITableViewCell {
     
     let button = UIButton()
     let textView = UITextView()
+    
+    var delegate: ListOfTasksTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpButton()
@@ -31,7 +39,7 @@ class ListOfTasksTableViewCell: UITableViewCell {
         button.tintColor = .systemBlue
         
         contentView.addSubview(button)
-//        button.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addTask), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -59,5 +67,9 @@ class ListOfTasksTableViewCell: UITableViewCell {
             textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5)
             
         ])
+    }
+    
+    @objc func addTask(){
+        delegate?.didTapAddButton(self)
     }
 }
