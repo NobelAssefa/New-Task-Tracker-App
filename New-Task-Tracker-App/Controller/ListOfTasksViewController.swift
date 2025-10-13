@@ -80,8 +80,8 @@ class ListOfTasksViewController: UIViewController {
     func setupFilterButton(){
         sortButton.setImage(Images.arrow_up_arrow_down, for: .normal)
         filterButton.setImage(Images.sortingButtonIcon, for: .normal)
-//        sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
-//        filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
+        sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         sortButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -108,6 +108,32 @@ class ListOfTasksViewController: UIViewController {
         
         
     }
+    
+    @objc func filterButtonTapped(){
+        if(isfilterButtonTapped == false){
+            viewModel.dataSource = viewModel.tasks.listAllTasks().filter { $0.isCompleted == false }
+            isfilterButtonTapped = true
+            tableView.reloadData()
+        }else if(isfilterButtonTapped == true){
+            viewModel.dataSource = viewModel.tasks.listAllTasks()
+            isfilterButtonTapped = false
+            tableView.reloadData()
+        }
+    }
+    
+    
+    @objc func sortButtonTapped(){
+        if(isSortButtonTapped == false){
+            viewModel.dataSource = viewModel.tasks.listAllTasks().sorted { $0.title < $1.title }
+            isSortButtonTapped = true
+            tableView.reloadData()
+        }else if(isSortButtonTapped == true){
+            viewModel.dataSource = viewModel.tasks.listAllTasks()
+            isSortButtonTapped = false
+            tableView.reloadData()
+        }
+    }
+    
     func setupthemeButton(){
         
         themeButton.setImage(Images.sun_max, for: .normal)
@@ -125,11 +151,11 @@ class ListOfTasksViewController: UIViewController {
     
     @objc func setLighttheme(){
         if(isthemeButtonTapped == false){
-//            ThemeManager.themeManager.applyTheme(.dark)
+            ThemeManager.themeManager.applyTheme(.dark)
             themeButton.setImage(Images.sun_min_fill, for: .normal)
             isthemeButtonTapped = true
         }else{
-//            ThemeManager.themeManager.applyTheme(.light)
+            ThemeManager.themeManager.applyTheme(.light)
             isthemeButtonTapped = false
             themeButton.setImage(Images.sun_min, for: .normal)
             
