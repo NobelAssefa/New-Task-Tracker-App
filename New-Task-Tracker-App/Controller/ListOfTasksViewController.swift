@@ -19,7 +19,7 @@ class ListOfTasksViewController: UIViewController {
     let filterButton = UIButton(type: .system)
     let sortButton = UIButton(type: .system)
     
-    
+    let tableView = UITableView()
     let themeButton = UIButton(type: .system)
     
     
@@ -32,6 +32,7 @@ class ListOfTasksViewController: UIViewController {
         setUpStackView()
         
         setUpStackView()
+        setuptableview()
     }
 
     func setUpHalfViewController(){
@@ -142,8 +143,27 @@ class ListOfTasksViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 10)
             
         ])
-        
+
         
     }
+    
+    func setuptableview(){
+        
+        let nib = UINib(nibName: "ListOfTasksTableViewCell", bundle: nil)
+        
+        tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+        ])
+    }
+    
 }
 
