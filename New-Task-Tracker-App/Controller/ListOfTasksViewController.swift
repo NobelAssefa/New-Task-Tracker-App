@@ -25,6 +25,9 @@ class ListOfTasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Tasks"
+        
         setUpHalfViewController()
         setupLable()
         setupthemeButton()
