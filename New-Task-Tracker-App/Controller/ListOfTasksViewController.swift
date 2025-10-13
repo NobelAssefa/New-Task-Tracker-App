@@ -22,14 +22,20 @@ class ListOfTasksViewController: UIViewController {
     let tableView = UITableView()
     let themeButton = UIButton(type: .system)
     
-    
+    let viewModel = ListOfTasksViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.dataSource = viewModel.tasks.tasks
+        
         setUpHalfViewController()
         setupLable()
         setupthemeButton()
         setupFilterButton()
         setUpStackView()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         setUpStackView()
         setuptableview()
