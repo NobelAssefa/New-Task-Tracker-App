@@ -22,6 +22,9 @@ class ListOfTasksViewController: UIViewController {
     let tableView = UITableView()
     let themeButton = UIButton(type: .system)
     
+    var isfilterButtonTapped = false
+    var isSortButtonTapped = false
+    var isthemeButtonTapped = false
     let viewModel = ListOfTasksViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +113,7 @@ class ListOfTasksViewController: UIViewController {
         themeButton.setImage(Images.sun_max, for: .normal)
         themeButton.tintColor = .white
         themeButton.translatesAutoresizingMaskIntoConstraints = false
-//        themeButton.addTarget(self, action: #selector(setLighttheme), for: .touchUpInside)
+        themeButton.addTarget(self, action: #selector(setLighttheme), for: .touchUpInside)
         view.addSubview(themeButton)
         
         NSLayoutConstraint.activate([
@@ -119,6 +122,21 @@ class ListOfTasksViewController: UIViewController {
         ])
         
     }
+    
+    @objc func setLighttheme(){
+        if(isthemeButtonTapped == false){
+//            ThemeManager.themeManager.applyTheme(.dark)
+            themeButton.setImage(Images.sun_min_fill, for: .normal)
+            isthemeButtonTapped = true
+        }else{
+//            ThemeManager.themeManager.applyTheme(.light)
+            isthemeButtonTapped = false
+            themeButton.setImage(Images.sun_min, for: .normal)
+            
+        }
+        
+    }
+    
     
     func setUpStackView(){ //50*35
         
