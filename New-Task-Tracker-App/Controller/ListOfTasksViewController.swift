@@ -26,10 +26,9 @@ class ListOfTasksViewController: UIViewController {
     var isSortButtonTapped = false
     var isthemeButtonTapped = false
     let viewModel = ListOfTasksViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         viewModel.dataSource = viewModel.tasks.tasks
 
     
