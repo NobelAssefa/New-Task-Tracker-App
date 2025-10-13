@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 enum Colors {
     
-    static let primaryColor = UIColor(named: "PrimaryColor")
-    static let backgroundColor = UIColor(named: "BackgroundColor")
-    static let secondaryColor = UIColor(named: "SecondaryColor")
+    static let primaryColor = UIColor(named: "Primary")
+    static let backgroundColor = UIColor(named: "Background")
+    static let secondaryColor = UIColor(named: "Secondary")
     
     
 }
