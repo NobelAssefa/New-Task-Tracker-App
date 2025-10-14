@@ -66,7 +66,7 @@ class ListOfTasksViewController: UIViewController {
     
     func setupLable(){
         
-        lable.text = "List Of Tracker"
+        lable.text = "List Of Tasks"
         lable.textColor = .white
         lable.textAlignment = .center
         lable.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
