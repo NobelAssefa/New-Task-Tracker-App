@@ -25,28 +25,30 @@ class ListOfTasksViewController: UIViewController {
     var isfilterButtonTapped = false
     var isSortButtonTapped = false
     var isthemeButtonTapped = false
+    
     let viewModel = ListOfTasksViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel.dataSource = viewModel.tasks.tasks
-
     
+    //MARK: - viewDidLoad
+    
+    override func viewDidLoad() {
 
-        
+        super.viewDidLoad()
+        view.backgroundColor = Colors.backgroundColor
+        viewModel.copy = viewModel.data
         setUpHalfViewController()
         setupLable()
         setupthemeButton()
         setupFilterButton()
-        setUpStackView()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
         setUpStackView()
         setuptableview()
     }
-
+    
+    
+// MARK: - HalfContainer UI
+    
     func setUpHalfViewController(){
         
         halfView.backgroundColor = Colors.primaryColor
@@ -61,8 +63,9 @@ class ListOfTasksViewController: UIViewController {
             halfView.widthAnchor.constraint(equalTo:  view.widthAnchor),
             halfView.heightAnchor.constraint(equalToConstant: 200),
         ])
-        
     }
+    
+// MARK: - ContanierLabel UI
     
     func setupLable(){
         
@@ -77,8 +80,9 @@ class ListOfTasksViewController: UIViewController {
             lable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             lable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
-        
     }
+    
+    // MARK: - filterButton UI
     
     func setupFilterButton(){
         sortButton.setImage(Images.arrow_up_arrow_down, for: .normal)
@@ -113,30 +117,40 @@ class ListOfTasksViewController: UIViewController {
     }
     
     @objc func filterButtonTapped(){
-        if(isfilterButtonTapped == false){
-            viewModel.dataSource = viewModel.tasks.listAllTasks().filter { $0.isCompleted == false }
-            isfilterButtonTapped = true
-            tableView.reloadData()
-        }else if(isfilterButtonTapped == true){
-            viewModel.dataSource = viewModel.tasks.listAllTasks()
-            isfilterButtonTapped = false
-            tableView.reloadData()
+        var filterdData:[Tasks] = []
+        if !isfilterButtonTapped {
+            
+            filterdData = viewModel.copy.filter { $0.isCompleted }
+            debugPrint("Completed Tasks: \(filterdData.count)")
+        } else {
+            filterdData = viewModel.copy.filter { !$0.isCompleted }
+            debugPrint("Incomplete Tasks: \(filterdData.count)")
         }
+
+        viewModel.data = filterdData
+        debugPrint("updated Data after filter button tapped: \(viewModel.data)")
+        isfilterButtonTapped.toggle()
+       
+        tableView.reloadData()
+
     }
     
-    
+   
     @objc func sortButtonTapped(){
+        var sortedData:[Tasks] = []
         if(isSortButtonTapped == false){
-            viewModel.dataSource = viewModel.tasks.listAllTasks().sorted { $0.title < $1.title }
-            isSortButtonTapped = true
-            tableView.reloadData()
-        }else if(isSortButtonTapped == true){
-            viewModel.dataSource = viewModel.tasks.listAllTasks()
-            isSortButtonTapped = false
-            tableView.reloadData()
+            sortedData = viewModel.copy.sorted { $0.title < $1.title }
         }
+        
+        else if(isSortButtonTapped == true){
+            sortedData = viewModel.copy.sorted { $0.title > $1.title }
+        }
+        viewModel.data = sortedData
+        isSortButtonTapped.toggle()
+        tableView.reloadData()
     }
     
+    // MARK: - themeButton UI
     func setupthemeButton(){
         
         themeButton.setImage(Images.sun_max, for: .normal)
@@ -153,19 +167,22 @@ class ListOfTasksViewController: UIViewController {
     }
     
     @objc func setLighttheme(){
-        if(isthemeButtonTapped == false){
+
+        if(!isthemeButtonTapped){
             ThemeManager.themeManager.applyTheme(.dark)
             themeButton.setImage(Images.sun_min_fill, for: .normal)
-            isthemeButtonTapped = true
+            
         }else{
             ThemeManager.themeManager.applyTheme(.light)
-            isthemeButtonTapped = false
+            
             themeButton.setImage(Images.sun_min, for: .normal)
             
         }
-        
+        // must be toggled
+        isthemeButtonTapped.toggle()
     }
     
+    //MARK: - AddTask UI
     
     func setUpStackView(){ //50*35
         
@@ -178,7 +195,7 @@ class ListOfTasksViewController: UIViewController {
         button1.translatesAutoresizingMaskIntoConstraints = false
         textField1.translatesAutoresizingMaskIntoConstraints = false
         textField1.placeholder = " Add Task"
-        textField1.backgroundColor = .systemGray5
+        textField1.backgroundColor = Colors.secondaryColor
         textField1.layer.cornerRadius = 10
         
         stackView.axis = .horizontal
@@ -187,10 +204,10 @@ class ListOfTasksViewController: UIViewController {
         
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
-            button1.heightAnchor.constraint(equalToConstant: 35),
+         
             button1.widthAnchor.constraint(equalToConstant: 80),
-            textField1.heightAnchor.constraint(equalToConstant: 100),
-            stackView.heightAnchor.constraint(equalToConstant: 40),
+
+            stackView.heightAnchor.constraint(equalToConstant: 60),
             stackView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor,constant: 20),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 10)
@@ -199,14 +216,14 @@ class ListOfTasksViewController: UIViewController {
 
         
     }
-    
+    // MARK: - TableView UI
     func setuptableview(){
         
         let nib = UINib(nibName: "ListOfTasksTableViewCell", bundle: nil)
         
         tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.backgroundColor = Colors.backgroundColor
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             
@@ -217,12 +234,18 @@ class ListOfTasksViewController: UIViewController {
             
         ])
     }
+    
     @objc func addTask(){
+      
         let task = Tasks(title : textField1.text ?? "", isCompleted: false)
-        viewModel.tasks.addTask(task:task)
-        viewModel.dataSource.append(task)
+        viewModel.addTask(task)
         tableView.reloadData()
     }
+    
+    //MARK: - User Default functions
+   
+    
+    
     
 }
 

@@ -20,6 +20,7 @@ enum Images {
     static let tabBarStatusIcon = UIImage(systemName: "chart.bar")
     static let taskCompletedButtonIcon = UIImage(systemName: "circle.fill")
     static let task = UIImage(systemName: "circle")
+    static let deletTtask = UIImage(systemName: "trash.fill")
     
     
     

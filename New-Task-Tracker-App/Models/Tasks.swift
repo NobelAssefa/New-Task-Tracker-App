@@ -6,7 +6,8 @@
 //
 
 import Foundation
-struct Tasks{
+
+struct Tasks:Codable{
     
     var title: String , isCompleted: Bool
 }

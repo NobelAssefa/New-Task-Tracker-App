@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F4F32CAC2E9D196B00C775D2 /* Exceptions for "New-Task-Tracker-App" folder in "New-Task-Tracker-App" target */ = {
+		F4CC2E332E9E6F04003A7794 /* Exceptions for "New-Task-Tracker-App" folder in "New-Task-Tracker-App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		F4F32C9C2E9D196900C775D2 /* New-Task-Tracker-App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F4F32CAC2E9D196B00C775D2 /* Exceptions for "New-Task-Tracker-App" folder in "New-Task-Tracker-App" target */,
+				F4CC2E332E9E6F04003A7794 /* Exceptions for "New-Task-Tracker-App" folder in "New-Task-Tracker-App" target */,
 			);
 			path = "New-Task-Tracker-App";
 			sourceTree = "<group>";
