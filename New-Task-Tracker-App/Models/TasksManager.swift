@@ -10,7 +10,7 @@ import Foundation
 class TasksManager:Codable {
     static var tasks = TasksManager()
     
-    var tasks: [Tasks] = UserDefault.loadTasks() 
+    var tasks: [Tasks] = []
     
      private init(){
          tasks = [

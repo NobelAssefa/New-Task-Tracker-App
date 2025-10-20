@@ -34,19 +34,25 @@ class ListOfTasksViewController: UIViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
         view.backgroundColor = Colors.backgroundColor
+        SetUpTableViewDelegateAndDataSource()
         viewModel.copy = viewModel.data
+        
         setUpHalfViewController()
         setupLable()
         setupthemeButton()
         setupFilterButton()
-        tableView.delegate = self
-        tableView.dataSource = self
+      
+        
         setUpStackView()
         setuptableview()
     }
     
-    
+    func SetUpTableViewDelegateAndDataSource(){
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
 // MARK: - HalfContainer UI
     
     func setUpHalfViewController(){
@@ -145,12 +151,14 @@ class ListOfTasksViewController: UIViewController {
         else if(isSortButtonTapped == true){
             sortedData = viewModel.copy.sorted { $0.title > $1.title }
         }
+        
         viewModel.data = sortedData
         isSortButtonTapped.toggle()
         tableView.reloadData()
     }
     
     // MARK: - themeButton UI
+    
     func setupthemeButton(){
         
         themeButton.setImage(Images.sun_max, for: .normal)

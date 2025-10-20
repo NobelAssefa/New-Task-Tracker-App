@@ -10,9 +10,15 @@ class ListOfTasksViewModel {
    
 
     var data = UserDefault.loadTasks()
+    
     var copy:[Tasks] = []
     
-    
+    init(){
+        if(data.count == 0){
+            UserDefault.updateUserDefault(TasksManager.tasks.tasks)
+
+        }
+    }
     func deleteTask (_ index: Int){
         data.remove(at: index)
         copy = data

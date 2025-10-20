@@ -33,8 +33,10 @@ extension ListOfTasksViewController: UITableViewDataSource,UITableViewDelegate,L
         }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return viewModel.data.count
         }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 100
@@ -45,6 +47,9 @@ extension ListOfTasksViewController: UITableViewDataSource,UITableViewDelegate,L
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! ListOfTasksTableViewCell
         
         cell.delegate = self
+        
+       
+        debugPrint(viewModel.data.count)
         let task = viewModel.data[indexPath.row]
         
         if(task.isCompleted){
@@ -57,7 +62,6 @@ extension ListOfTasksViewController: UITableViewDataSource,UITableViewDelegate,L
 
         } else {
             cell.button.setImage(Images.task, for: .normal)
-        
             cell.button.tintColor = .systemBlue
             cell.textView.backgroundColor = .systemBackground
             cell.textView.text = task.title
